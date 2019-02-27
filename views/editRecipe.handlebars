@@ -1,0 +1,25 @@
+<div>
+  <form method="post" action='/recipes/edit/{{data.id}}'>
+    <table>
+      <tbody>
+        <tr>
+          <th width="200">Title: </td>
+          <td><input type="text" name="title" required value="{{data.title}}"></td>
+        </tr>
+        {{!-- <tr>
+          <th>Last Name: </td>
+          <td><input type="text" name="lastName" required size="40" value="{{data.lastName}}"></td>
+        </tr> --}}
+
+      </tbody>
+      <tfooter>
+        <tr>
+          <td></td>
+          <td>
+            <input type="submit" value="Save">
+          </td>
+        </tr>
+      </tfooter>
+    </table>
+  </form>
+</div>

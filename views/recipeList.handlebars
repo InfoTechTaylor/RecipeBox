@@ -1,0 +1,22 @@
+<h4>Recipes</h4>
+
+{{!-- <div class="row">
+  <div class="col-sm-6"> --}}
+    {{!-- https://funkjedi.com/technology/412-every-nth-item-in-handlebars/ --}}
+    {{!-- https://stackoverflow.com/questions/49141874/bootstrap-4-card-panel-with-image-left-of-header-and-title --}}
+    {{#each recipes}}
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">{{this.title}}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">{{this.source}}</h6>
+        <p class="card-text">{{this.description}}
+        </p>
+        <a href="/recipes/edit/{{this.id}}" class="card-link">Edit</a>
+        <a href="/recipes/delete/{{this.id}}" class="card-link">Delete</a>
+      </div>
+    </div>
+    {{/each}}
+    {{!-- </div>
+    </div> --}}
+
+ 
