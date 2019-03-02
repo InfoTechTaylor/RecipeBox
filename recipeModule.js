@@ -26,6 +26,32 @@ module.exports.displayAllRecipes =
     });
   };
 
+module.exports.viewRecipe = (req, res, next) => {
+  let id = req.params.id;
+
+  Recipe.findById(id, (err, recipe) => {
+    if (err) {
+      console.log('Error selecting : %s ', err);
+    }
+
+    if (!recipe) {
+      return res.render('404');
+    }
+
+    res.render('viewRecipe',
+      {
+        title: "View Recipe",
+        data: {
+          id: recipe._id,
+          title: recipe.title,
+          source: recipe.source,
+          description: recipe.description,
+          ingredients: recipe.ingredients,
+          instructions: recipe.instructions
+        }
+      });
+  });
+};
 
 module.exports.addRecipe = (req, res, next) => {
   res.render('newRecipe', { title: "Add a Recipe" });

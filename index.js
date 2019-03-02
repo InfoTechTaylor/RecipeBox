@@ -11,6 +11,7 @@ const displayAllRecipes = recipeModule.displayAllRecipes;
 const editRecipe = recipeModule.editRecipe;
 const saveRecipe = recipeModule.saveRecipe;
 const saveAfterEdit = recipeModule.saveAfterEdit;
+const viewRecipe = recipeModule.viewRecipe;
 
 // define routes 
 router.get('/', (req, res, next) => {
@@ -18,6 +19,8 @@ router.get('/', (req, res, next) => {
 });
 
 router.get('/recipes', displayAllRecipes); 
+
+router.get('/recipes/view/:id', viewRecipe);
 
 router.get('/recipes/add', addNewRecipe); 
 router.post('/recipes/add', saveRecipe); 

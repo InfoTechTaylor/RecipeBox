@@ -1,25 +1,31 @@
 <div>
   <form method="post" action='/recipes/edit/{{data.id}}'>
-    <table>
-      <tbody>
-        <tr>
-          <th width="200">Title: </td>
-          <td><input type="text" name="title" required value="{{data.title}}"></td>
-        </tr>
-        {{!-- <tr>
-          <th>Last Name: </td>
-          <td><input type="text" name="lastName" required size="40" value="{{data.lastName}}"></td>
-        </tr> --}}
 
-      </tbody>
-      <tfooter>
-        <tr>
-          <td></td>
-          <td>
-            <input type="submit" value="Save">
-          </td>
-        </tr>
-      </tfooter>
-    </table>
+    <div class="form-group">
+      <label for="title">Recipe Title: </label>
+      <input class="form-control" type="text" name="title" required value="{{data.title}}" />
+    </div>
+
+    <div class="form-group">
+      <label for="source">Source: </label>
+      <input class="form-control" type="text" name="source" value="{{data.source}}" />
+    </div>
+
+    <div class="form-group">
+      <label for="description">Description: </label>
+      <textarea class="form-control" rows="3" name="description" value="{{data.description}}"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="ingredients">Ingredients: </label>
+      <textarea class="form-control" rows="3" name="ingredients" value="{{data.ingredients}}"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="instructions">Instructions: </label>
+      <textarea class="form-control" rows="3" name="instructions" value="{{data.instructions}}"></textarea>
+    </div>
+    <input type="submit" value="Save">
+
   </form>
 </div>
