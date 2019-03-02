@@ -1,4 +1,4 @@
-const DB = require('./dbConnection.js');
+const DB = require('./recipe_dbConnection.js');
 const Recipe = DB.getModel();
 
 
