@@ -1,24 +1,32 @@
-<div class="form-group">
-  <label for="title">Recipe Title: </label>
-  <input class="form-control" type="text" name="title" required value="{{data.title}}" />
-</div>
-
-<div class="form-group">
-  <label for="source">Source: </label>
-  <input class="form-control" type="text" name="source" value="{{data.source}}" />
-</div>
-
-<div class="form-group">
-  <label for="description">Description: </label>
-  <textarea class="form-control" rows="3" name="description" value="{{data.description}}"></textarea>
-</div>
-
-<div class="form-group">
-  <label for="ingredients">Ingredients: </label>
-  <textarea class="form-control" rows="3" name="ingredients" value="{{data.ingredients}}"></textarea>
+<div>
+  <h4>{{data.title}} </h4>
 </div>
 
 <div>
-  <label for="instructions">Instructions: </label>
-  <textarea class="form-control" rows="3" name="instructions" value="{{data.instructions}}"></textarea>
+  <h5><b>Author: {{data.source}} </b></h5>
 </div>
+
+<div>
+  <p>{{data.description}}</p>
+</div>
+
+<div>
+  <h6>Ingredients:</h6>
+  <ul>
+  {{#each data.ingredients}}
+  <li>{{this}}</li>
+  {{/each}}
+  </ul>
+</div>
+
+<div>
+  <h6>Instructions:</h6>
+  <ol>
+    {{#each data.instructions}}
+    <li>{{this}}</li>
+    {{/each}}
+  </ol>
+</div>
+
+<a class="btn btn-primary" href="/recipes">Return to Recipes</a>
+

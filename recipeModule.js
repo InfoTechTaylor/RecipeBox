@@ -1,3 +1,4 @@
+const os = require('os');
 const DB = require('./recipe_dbConnection.js');
 const Recipe = DB.getModel();
 
@@ -58,12 +59,16 @@ module.exports.addRecipe = (req, res, next) => {
 };
 
 module.exports.saveRecipe = (req, res, next) => {
+
+  // TODO filter out empty lines for ingredients and instructions
+  // TODO remove numbers at start of ingredient lines if users added them
+  // TODO validate required fields are not empty first before saving
   let recipe = new Recipe({
     title: req.body.title,
     source: req.body.source,
     description: req.body.description,
-    ingredients: req.body.ingredients,
-    instructions: req.body.instructions
+    ingredients: req.body.ingredients.split(os.EOL),
+    instructions: req.body.instructions.split(os.EOL)
   });
 
   recipe.save((err) => {
@@ -113,10 +118,14 @@ module.exports.saveAfterEdit = (req, res, next) => {
       return res.render('404');
     }
 
+    // TODO filter out empty lines for ingredients and instructions
+    // TODO remove numbers at start of ingredient lines if users added them
+    // TODO validate required fields are not empty first before saving
     recipe.title = req.body.title;
+    recipe.source = req.body.source;
     recipe.description = req.body.description;
-    recipe.ingredients = req.body.ingredients;
-    recipe.instructions = req.body.instructions
+    recipe.ingredients = req.body.ingredients.split(os.EOL);
+    recipe.instructions = req.body.instructions.split(os.EOL);
 
     recipe.save((err) => {
       if (err) {

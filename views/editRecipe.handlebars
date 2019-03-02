@@ -13,19 +13,20 @@
 
     <div class="form-group">
       <label for="description">Description: </label>
-      <textarea class="form-control" rows="3" name="description" value="{{data.description}}"></textarea>
+      <textarea class="form-control" rows="3" name="description">{{data.description}}</textarea>
     </div>
 
     <div class="form-group">
       <label for="ingredients">Ingredients: </label>
-      <textarea class="form-control" rows="3" name="ingredients" value="{{data.ingredients}}"></textarea>
+      <textarea class="form-control" rows="3" name="ingredients">{{#each data.ingredients}}{{this}}{{/each}}</textarea>
     </div>
 
     <div class="form-group">
       <label for="instructions">Instructions: </label>
-      <textarea class="form-control" rows="3" name="instructions" value="{{data.instructions}}"></textarea>
+      <textarea class="form-control" rows="3" name="instructions">{{#each data.instructions}}{{this}}{{/each}}</textarea>
     </div>
-    <input type="submit" value="Save">
+    <input class="btn btn-primary" type="submit" value="Save">
+    <a class="btn btn-primary" href="/recipes">Cancel</a>
 
   </form>
 </div>

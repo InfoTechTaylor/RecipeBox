@@ -32,6 +32,30 @@ const userSchema = new Schema({
 
 console.log('user schema created');
 
+userSchema.statics.authenticate = function (username, password, callback) {
+  console.log('inside authenticate function');
+  User.findOne({ username: username }).exec(function (err, user) {
+    console.log('inside find one');
+      if (err) {
+        console.log('err', err);
+        return callback(err)
+      } else if (!user) {
+        var err = new Error('User not found.');
+        console.log(err);
+        err.status = 401;
+        return callback(err);
+      }
+      bcrypt.compare(password, user.password, function (err, result) {
+        console.log('bcrypt');
+        if (result === true) {
+          return callback(null, user);
+        } else {
+          return callback(err);
+        }
+      })
+    });
+};
+
 // hashing a password before saving it to the database
 userSchema.pre('save', function (next) {
   var user = this;
@@ -48,14 +72,13 @@ const User = mongoose.model('User', userSchema);
 module.exports = User;
 
 // create the model for the schema and export
-module.exports.getModel =
-  () => {
-    if (userDbConnection === null) {
-      console.log("Creating user connection and model...");
-      userDbConnection = mongoose.createConnection(userDbUrl);
-      userModel = userDbConnection.model("UserModel", userSchema);
-      console.log('user connection success!');
-    };
-    return userModel;
-  };
+// module.exports.getModel =() => {
+//     if (userDbConnection === null) {
+//       console.log("Creating user connection and model...");
+//       userDbConnection = mongoose.createConnection(userDbUrl);
+//       userModel = userDbConnection.model("User", userSchema);
+//       console.log('user connection success!');
+//     };
+//     return userModel;
+//   };
 

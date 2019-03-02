@@ -17,6 +17,8 @@ const viewRecipe = recipeModule.viewRecipe;
 // set user module functions
 const addNewUser = userModule.addNewUser;
 const registerUser = userModule.registerUser;
+const getLoginPage = userModule.getLoginPage;
+const login = userModule.login;
 
 // define routes 
 router.get('/', (req, res, next) => {
@@ -39,5 +41,8 @@ router.post('/recipes/edit/:id', saveAfterEdit);
 // user routes
 router.get('/user/register', addNewUser);
 router.post('/user/register', registerUser);
+
+router.get('/user/login', getLoginPage);
+router.post('/user/login', login)
 
 module.exports = router;
