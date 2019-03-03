@@ -2,8 +2,8 @@ const express = require('express');
 const router = express.Router();
 
 // import modules
-const recipeModule = require('./recipeModule');
-const userModule = require('./userModule');
+const recipeModule = require('./recipe/recipeModule');
+const userModule = require('./user/userModule');
 
 // set recipe module functions 
 const addNewRecipe = recipeModule.addRecipe;
@@ -19,6 +19,7 @@ const addNewUser = userModule.addNewUser;
 const registerUser = userModule.registerUser;
 const getLoginPage = userModule.getLoginPage;
 const login = userModule.login;
+const logout = userModule.logout;
 
 // define routes 
 router.get('/', (req, res, next) => {
@@ -44,5 +45,7 @@ router.post('/user/register', registerUser);
 
 router.get('/user/login', getLoginPage);
 router.post('/user/login', login)
+
+router.get('/user/logout', logout);
 
 module.exports = router;

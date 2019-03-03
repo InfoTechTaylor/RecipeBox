@@ -1,11 +1,15 @@
-const User = require('./user_dbConnection.js');
-
+const DB = require('./user_dbConnection.js');
+const User = DB.getModel();
 
 module.exports.addNewUser = (req, res, next) => {
   res.render('newUser', {title: 'Add New User'});
 };
 
 module.exports.registerUser = (req, res, next) => {
+
+  // TODO validate valid email is used
+  // TODO validate for security concerns 
+  // TODO enforce password complexity requirements 
     if (req.body.email &&
       req.body.username &&
       req.body.password &&
@@ -38,6 +42,8 @@ module.exports.getLoginPage = (req, res, next) => {
 };
 
 module.exports.login = (req, res, next) => {
+  // TODO remove the below console.log
+  // TODO how to hash on submit? 
   console.log('login user', req.body);
   //authenticate input against database
   let username = req.body.username;
@@ -53,7 +59,24 @@ module.exports.login = (req, res, next) => {
     } else {
       console.log('success');
       req.session.userId = user._id;
-      res.redirect('/recipes');
+      req.session.username = user.username;
+      res.redirect('/');
     }
   });
+};
+
+module.exports.logout = (req, res, next) => {
+  if (req.session) {
+    // delete session object from database
+    req.session.destroy(function (err) {
+      if (err) {
+        return next(err);
+      } else {
+        console.log('successful logout');
+        // clear cookie from browser
+        res.clearCookie('connect.sid', {path: '/'});
+        res.redirect('/');
+      }
+    });
+  }
 };

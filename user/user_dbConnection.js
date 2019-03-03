@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt');
 const userDbUrl = 'mongodb://localhost:27017/userDB';
 
 let userDbConnection = null;
-let userModel = null;
+let User = null;
 
 const Schema = mongoose.Schema;
 
@@ -68,17 +68,17 @@ userSchema.pre('save', function (next) {
   })
 });
 
-const User = mongoose.model('User', userSchema);
-module.exports = User;
+// const User = mongoose.model('User', userSchema);
+// module.exports = User;
 
 // create the model for the schema and export
-// module.exports.getModel =() => {
-//     if (userDbConnection === null) {
-//       console.log("Creating user connection and model...");
-//       userDbConnection = mongoose.createConnection(userDbUrl);
-//       userModel = userDbConnection.model("User", userSchema);
-//       console.log('user connection success!');
-//     };
-//     return userModel;
-//   };
+module.exports.getModel =() => {
+    if (userDbConnection === null) {
+      console.log("Creating user connection and model...");
+      userDbConnection = mongoose.createConnection(userDbUrl);
+      User = userDbConnection.model("User", userSchema);
+      console.log('user connection success!');
+    };
+    return User;
+  };
 
