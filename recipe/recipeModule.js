@@ -59,7 +59,12 @@ module.exports.viewRecipe = (req, res, next) => {
 };
 
 module.exports.addRecipe = (req, res, next) => {
-  res.render('newRecipe', { title: "Add a Recipe" });
+  if(req.session.role == 'admin'){
+    res.render('newRecipe', { title: "Add a Recipe" });
+  } else {
+    res.redirect('/recipes');
+  }
+  
 };
 
 module.exports.saveRecipe = (req, res, next) => {

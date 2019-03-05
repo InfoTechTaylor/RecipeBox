@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 const Schema = mongoose.Schema;
 
 mongoose.Promise = global.Promise;
@@ -25,6 +26,17 @@ const userSchema = new Schema({
     type: String,
     required: true
   }
+});
+
+userSchema.pre('save', function (next) {
+  var user = this;
+  bcrypt.hash(user.password, 10, function (err, hash) {
+    if (err) {
+      return next(err);
+    }
+    user.password = hash;
+    next();
+  })
 });
 
 // create the model for the schema and export

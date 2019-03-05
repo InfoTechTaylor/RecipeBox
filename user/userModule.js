@@ -60,6 +60,7 @@ module.exports.login = (req, res, next) => {
       console.log('success');
       req.session.userId = user._id;
       req.session.username = user.username;
+      req.session.role = user.role;
       res.redirect('/recipes');
     }
   });
