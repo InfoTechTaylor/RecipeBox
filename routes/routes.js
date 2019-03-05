@@ -28,7 +28,7 @@ const logout = userModule.logout;
 
 // auth module functions
 const requiresLogin = auth.requiresLogin;
-
+const requireRole = auth.requireRole;
 // define routes 
 router.get('/', requiresLogin, (req, res, next) => {
   res.redirect('/recipes');
@@ -38,13 +38,13 @@ router.get('/recipes', requiresLogin, displayAllRecipes);
 
 router.get('/recipes/view/:id', requiresLogin, viewRecipe);
 
-router.get('/recipes/add', requiresLogin, addNewRecipe); 
-router.post('/recipes/add', requiresLogin, saveRecipe); 
+router.get('/recipes/add', requiresLogin, requireRole('admin'), addNewRecipe); 
+router.post('/recipes/add', requiresLogin, requireRole('admin'), saveRecipe); 
 
-router.get('/recipes/delete/:id', requiresLogin, deleteRecipe);
+router.get('/recipes/delete/:id', requireRole('admin'), requiresLogin, deleteRecipe);
 
-router.get('/recipes/edit/:id', requiresLogin, editRecipe);
-router.post('/recipes/edit/:id', requiresLogin, saveAfterEdit);
+router.get('/recipes/edit/:id', requireRole('admin'), requiresLogin, editRecipe);
+router.post('/recipes/edit/:id', requireRole('admin'), requiresLogin, saveAfterEdit);
 
 
 // user routes
@@ -56,6 +56,9 @@ router.post('/user/login', login)
 
 router.get('/user/logout', requiresLogin, logout);
 
+router.get('/user/unauthorized', (req, res, next) => {
+  res.render('unauthorized');
+});
 
 
 

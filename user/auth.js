@@ -7,3 +7,13 @@ module.exports.requiresLogin = (req, res, next) => {
     res.redirect('/user/login');
   }
 }
+
+module.exports.requireRole = (role) => {
+  return function (req, res, next) {
+    if (req.session && req.session.role === role) {
+      next();
+    } else {
+      res.redirect('/user/unauthorized');
+    }
+  }
+}

@@ -17,9 +17,13 @@
     <div class="row">
       <div class="col-lg-12">
         <h1 class="one"><a href="/">Recipe Box</a></h1>
-        {{!-- {{#if document.cookie}}
-        {{document.cookie}}
-        {{/if}} --}}
+        <script type="text/javascript">
+          if (document.cookie.split(';').filter(function (item) {
+              return item.indexOf('reader=1') >= 0
+            }).length) {
+              console.log('The cookie "reader" has "1" for value')
+            }
+        </script>
         <a class="btn btn-primary float-right" href="/recipes/add">Add Recipe</a>
 
       </div>
@@ -30,5 +34,4 @@
 
 
 </body>
-
 </html>
