@@ -27,6 +27,10 @@ module.exports.displayAllRecipes =
     });
   };
 
+module.exports.apiDisplayAllRecipes = (req, res, next) => {
+
+};
+
 module.exports.viewRecipe = (req, res, next) => {
   let id = req.params.id;
 

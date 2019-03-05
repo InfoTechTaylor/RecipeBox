@@ -19,6 +19,7 @@ module.exports.registerUser = (req, res, next) => {
             email: req.body.email,
             username: req.body.username,
             password: req.body.password,
+            role: 'user'
           });
 
           //use schema.create to insert data into the db
@@ -44,7 +45,6 @@ module.exports.getLoginPage = (req, res, next) => {
 module.exports.login = (req, res, next) => {
   // TODO remove the below console.log
   // TODO how to hash on submit? 
-  console.log('login user', req.body);
   //authenticate input against database
   let username = req.body.username;
   let password = req.body.password;
@@ -60,7 +60,7 @@ module.exports.login = (req, res, next) => {
       console.log('success');
       req.session.userId = user._id;
       req.session.username = user.username;
-      res.redirect('/');
+      res.redirect('/recipes');
     }
   });
 };

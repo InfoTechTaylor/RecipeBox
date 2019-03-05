@@ -4,6 +4,7 @@ const handlebars = require('express-handlebars');
 const session = require('express-session');
 const mongoStore = require('connect-mongo')(session);
 const mongoose = require('mongoose');
+const rest = require('connect-rest');
 
 const app = express();
 
@@ -21,14 +22,8 @@ const db = mongoose.connection;
 // TODO cookie secure flag should be set
 app.use(session({
   secret: 'SECRET',
-  resave: false,
+  resave: true,
   saveUninitialized: false,
-  cookie: {
-    secure: true,
-    maxAge: 10000
-  },
-  name: 'SID',
-  unset: 'destroy',
   store: new mongoStore({
     mongooseConnection: db
   })
@@ -37,11 +32,20 @@ app.use(session({
 // static resources
 app.use(express.static(__dirname + '/public'));
 
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+
+// REST API ROUTES
+// const apiOptions = {
+//   context: '/api',
+//   domain: require('domain').create()
+// };
+
+// // link API into pipeline
+// app.use(rest.rester(apiOptions));
 
 // server routing
-const routes = require('./routes');
+const routes = require('./routes/routes');
 app.use('/', routes);
 
 app.use((req, res) => {
