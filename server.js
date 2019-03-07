@@ -35,15 +35,6 @@ app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-// REST API ROUTES
-// const apiOptions = {
-//   context: '/api',
-//   domain: require('domain').create()
-// };
-
-// // link API into pipeline
-// app.use(rest.rester(apiOptions));
-
 // server routing
 const routes = require('./routes/routes');
 app.use('/', routes);

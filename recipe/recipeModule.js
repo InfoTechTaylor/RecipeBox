@@ -21,15 +21,11 @@ module.exports.displayAllRecipes =
           instructions: recipe.instructions
         }
       });
-
-      res.render('recipeList',
-        { title: "All Recipes", recipes: results });
+      
+      req.results = results;
+      return next();
     });
   };
-
-module.exports.apiDisplayAllRecipes = (req, res, next) => {
-
-};
 
 module.exports.viewRecipe = (req, res, next) => {
   let id = req.params.id;
@@ -39,22 +35,23 @@ module.exports.viewRecipe = (req, res, next) => {
       console.log('Error selecting : %s ', err);
     }
 
+    let data;
     if (!recipe) {
-      return res.render('404');
+      data = { error: '404' };
+    } else {
+      data = {
+        id: recipe._id,
+        title: recipe.title,
+        source: recipe.source,
+        description: recipe.description,
+        ingredients: recipe.ingredients,
+        instructions: recipe.instructions
+      }
     }
 
-    res.render('viewRecipe',
-      {
-        title: "View Recipe",
-        data: {
-          id: recipe._id,
-          title: recipe.title,
-          source: recipe.source,
-          description: recipe.description,
-          ingredients: recipe.ingredients,
-          instructions: recipe.instructions
-        }
-      });
+    req.results = data;
+    return next();
+
   });
 };
 
@@ -67,7 +64,7 @@ module.exports.saveRecipe = (req, res, next) => {
   // TODO filter out empty lines for ingredients and instructions
   // TODO remove numbers at start of ingredient lines if users added them
   // TODO validate required fields are not empty first before saving
-  let recipe = new Recipe({
+  let recipe = new Recipe({ 
     title: req.body.title,
     source: req.body.source,
     description: req.body.description,
@@ -155,7 +152,8 @@ module.exports.deleteRecipe = (req, res, next) => {
       if (err) {
         console.log('Error deleting : %s ', err);
       }
-      res.redirect('/recipes');
+      
+      return next();
     });
   });
 };

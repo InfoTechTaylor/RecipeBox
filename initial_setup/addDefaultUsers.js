@@ -24,7 +24,7 @@ connection.on("open", () => {
 
   user = new User({
     email: 'user@recipebox.com',
-    username: 'defaultuser',
+    username: 'user',
     password: 'user',
     role: 'user'
   });
