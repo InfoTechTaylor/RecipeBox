@@ -17,16 +17,20 @@ A regular user can just view
 ## Functionality
 The Recipe Box app supports html and a basic REST API.
 
-### HTML App Functionality
+### Web App Functionality
 
-#### login
+#### Login
 On first visit to http://localhost:3000, you will be redirected to localhost:3000/user/login to login. Only this page and http://localhost:3000/user/register are 
-accessible without logging in. http://localhost:3000/user/register will allow you to create a new user in the mongo database mongodb://localhost:27017/recipeDB,
-which stores an encrypted password using bcrypt. You can create a new user or use the admin or user accounts listed above after doing the initial setup.
+accessible without logging in. http://localhost:3000/user/register will allow you to create a new user in the mongo database mongodb://localhost:27017/userDB,
+which stores an encrypted password using bcrypt. You can create a new user or use the admin or user accounts listed above after doing the initial setup. When
+you login you will see a cookie has been created and can see the session in the sessions collection in the userDB.  
 
-#### admin
+#### Admin
 The admin user will be able to successfully add, edit and update recipes after logging in while the regular user will get routed to an unauthorized page if they try to click these options. 
 
+#### Logout
+The UI does not have a logout link but a user can be logged out by browsing to http://localhost:3000/user/logout. When you do this, you will see that the session gets removed from the userDB sessions collection.
+And the cookie will be removed from the browser. 
 
 ### REST API Functionality
 The REST API is setup to show all recipes and a recipe by ID. You can run the below curl commands to see these APIs demonstrated. Replace the :id part of the URL

@@ -7,7 +7,7 @@ module.exports.displayAllRecipes =
   (req, res, next) => {
     Recipe.find({}, (err, recipes) => {
       if (err) {
-        console.log('Error:', err);
+        return res.render('404');
       }
 
       let results = recipes.map((recipe) => {
@@ -32,7 +32,7 @@ module.exports.viewRecipe = (req, res, next) => {
 
   Recipe.findById(id, (err, recipe) => {
     if (err) {
-      console.log('Error selecting : %s ', err);
+      return res.render('404');
     }
 
     let data;
@@ -60,10 +60,6 @@ module.exports.addRecipe = (req, res, next) => {
 };
 
 module.exports.saveRecipe = (req, res, next) => {
-
-  // TODO filter out empty lines for ingredients and instructions
-  // TODO remove numbers at start of ingredient lines if users added them
-  // TODO validate required fields are not empty first before saving
   let recipe = new Recipe({ 
     title: req.body.title,
     source: req.body.source,
@@ -74,7 +70,7 @@ module.exports.saveRecipe = (req, res, next) => {
 
   recipe.save((err) => {
     if (err) {
-      console.log("Error: ", err);
+      return res.render('404');
     }
     res.redirect('/recipes');
   });
@@ -119,9 +115,6 @@ module.exports.saveAfterEdit = (req, res, next) => {
       return res.render('404');
     }
 
-    // TODO filter out empty lines for ingredients and instructions
-    // TODO remove numbers at start of ingredient lines if users added them
-    // TODO validate required fields are not empty first before saving
     recipe.title = req.body.title;
     recipe.source = req.body.source;
     recipe.description = req.body.description;
